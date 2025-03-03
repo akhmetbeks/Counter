@@ -9,27 +9,39 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var value = 0
+    @IBOutlet weak private var valueLabel: UILabel!
+    @IBOutlet weak private var historyTextView: UITextView!
+    @IBOutlet weak private var addButton: UIButton!
+    @IBOutlet weak private var resetButton: UIButton!
+    @IBOutlet weak private var subtractButton: UIButton!
     
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var historyTextView: UITextView!
-    @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var subtractButton: UIButton!
+    private var value = 0
     
-    @IBAction func onAddPressed() {
-        updateValue(on: .add)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        valueLabel.text = "0"
+        valueLabel.font = .boldSystemFont(ofSize: 20)
+        
+        historyTextView.text = "История изменений:"
+        historyTextView.font = .systemFont(ofSize: 16)
+        historyTextView.isScrollEnabled = true
+        historyTextView.isEditable = false
+        
+        addButton.tintColor = .systemRed
+        addButton.setTitle("+", for: .normal)
+        addButton.titleLabel?.font = .boldSystemFont(ofSize: 32)
+        
+        subtractButton.tintColor = .systemBlue
+        subtractButton.setTitle("-", for: .normal)
+        subtractButton.titleLabel?.font = .boldSystemFont(ofSize: 32)
+        
+        resetButton.tintColor = .systemGray
+        resetButton.setTitle("0", for: .normal)
+        resetButton.titleLabel?.font = .boldSystemFont(ofSize: 32)
     }
     
-    @IBAction func onResetPressed() {
-        updateValue(on: .reset)
-    }
-    
-    @IBAction func onSubtractPressed() {
-        updateValue(on: .subtract)
-    }
-    
-    func updateValue(on type: ButtonEnum) {
+    private func updateValue(on type: ButtonEnum) {
         let date = Date().formatted()
         var labelText: String = ""
         var historyText: String = ""
@@ -58,33 +70,16 @@ class ViewController: UIViewController {
         historyTextView.text += historyText
     }
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        valueLabel.text = "0"
-        valueLabel.font = .boldSystemFont(ofSize: 20)
-        
-        historyTextView.text = "История изменений:"
-        historyTextView.font = .systemFont(ofSize: 16)
-        historyTextView.isScrollEnabled = true
-        historyTextView.isEditable = false
-        
-        addButton.tintColor = .systemRed
-        addButton.setTitle("+", for: .normal)
-        addButton.titleLabel?.font = .boldSystemFont(ofSize: 32)
-        
-        subtractButton.tintColor = .systemBlue
-        subtractButton.setTitle("-", for: .normal)
-        subtractButton.titleLabel?.font = .boldSystemFont(ofSize: 32)
-        
-        resetButton.tintColor = .systemGray
-        resetButton.setTitle("0", for: .normal)
-        resetButton.titleLabel?.font = .boldSystemFont(ofSize: 32)
-        
+    @IBAction private func onAddPressed() {
+        updateValue(on: .add)
     }
-
-
+    
+    @IBAction private func onResetPressed() {
+        updateValue(on: .reset)
+    }
+    
+    @IBAction private func onSubtractPressed() {
+        updateValue(on: .subtract)
+    }
 }
 
